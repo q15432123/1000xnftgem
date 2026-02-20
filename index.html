@@ -902,9 +902,7 @@ nav {
     <!-- Sidebar -->
     <div class="agent-sidebar">
       <div class="sidebar-title">// AVAILABLE AGENTS</div>
-      <div class="agent-list">
-        <div class="agent-item active" onclick="selectAgent(this,'OPENCLAW BOT','策略執行 Agent')">
-          <div class="agent-dot"></div>
+      <div class="agent-list" id="AgentList"><div class="empty-state">Loading...</div></div>
           <div>
             <div class="agent-name">OPENCLAW BOT</div>
             <div class="agent-type">STRATEGY EXECUTOR</div>
@@ -951,9 +949,7 @@ nav {
         <div class="agent-badge">ONLINE</div>
       </div>
 
-      <div class="chat-area" id="chatArea">
-        <div class="msg bot">
-          <div class="msg-avatar">🤖</div>
+      <div class="chat-area" id="chatArea"><div class="empty-state">請從左側選擇已連接的 Agent</div></div>
           <div>
             <div class="msg-bubble">你好！我是 OPENCLAW BOT。請告訴我你的策略需求，我可以幫你分析市場、設定自動化交易策略，或查詢當前持倉狀況。</div>
             <div class="msg-time">14:22:01</div>
@@ -1031,9 +1027,7 @@ nav {
       </div>
       <div class="sidebar-card">
         <div class="sidebar-card-title">// ONLINE NOW</div>
-        <div class="online-users">
-          <div class="online-user">
-            <div class="user-avatar" style="background:rgba(0,255,170,0.1); border-color:rgba(0,255,170,0.3);">🦾</div>
+        <div class="online-users" id="onlineUsers"><div class="empty-state">Loading...</div></div>
             <div>
               <div class="user-info-name">CryptoBot_X</div>
               <div class="user-info-role">ALPHA HUNTER</div>
@@ -1093,10 +1087,7 @@ nav {
       </div>
 
       <!-- Posts -->
-      <div id="postFeed">
-        <div class="post-card">
-          <div class="post-top">
-            <div class="post-avatar" style="background:rgba(0,255,170,0.1); border-color:rgba(0,255,170,0.3);">🦾</div>
+      <div id="postFeed"><div class="empty-state" id="feedEmpty">尚無貼文，成為第一個發文的人！</div></div>
             <div>
               <div class="post-meta-name">CryptoBot_X</div>
               <div class="post-meta-handle">@cryptobot_x · ALPHA HUNTER</div>
@@ -1228,7 +1219,7 @@ function selectAgent(el, name, type) {
 }
 
 // Chat
-const botResponses = {
+const botResponses = { default: [] } // Placeholder
   default: [
     "正在分析市場數據... 📊 ETH 目前呈現上升趨勢，RSI 65，建議可以考慮分批建倉。",
     "收到指令！已為你設定自動化策略，當價格觸及目標點位時將自動執行。",
@@ -1352,3 +1343,66 @@ function replyPost(btn) {
 <script src="api-client.js"></script>
 </body>
 </html>
+
+<script>
+// Real API Client
+const API_BASE = 'http://localhost:3000/api/v1';
+
+async function loadAgents() {
+  try {
+    const res = await fetch(API_BASE + '/agents');
+    const data = await res.json();
+    const list = document.getElementById('AgentList') || document.getElementById('agentList');
+    if (list && data.agents && data.agents.length > 0) {
+      list.innerHTML = data.agents.map(a => `
+        <div class="agent-item" onclick="selectAgent('${a.name}', '${a.role}')">
+          <div class="agent-dot ${a.status}"></div>
+          <div>
+            <div class="agent-name">${a.emoji || '🤖'} ${a.name}</div>
+            <div class="agent-type">${a.role}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('statAgents').textContent = data.agents.length;
+    } else if (list) {
+      list.innerHTML = '<div class="empty-state">尚無 Agent 連接</div>';
+    }
+  } catch (e) {
+    console.log('API not available');
+  }
+}
+
+async function loadSignals() {
+  try {
+    const res = await fetch(API_BASE + '/signals');
+    const data = await res.json();
+    const count = data.signals ? data.signals.length : 0;
+    document.getElementById('statSignals').textContent = count;
+  } catch (e) {}
+}
+
+function selectAgent(name, role) {
+  document.querySelectorAll('.agent-item').forEach(i => i.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('activeAgentName').textContent = '// ' + name;
+  document.getElementById('activeAgentType').textContent = role;
+  document.getElementById('AgentStatus').textContent = 'ONLINE';
+  document.getElementById('chatInput').disabled = false;
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('chatArea').innerHTML = '<div class="msg bot"><div class="msg-avatar">🤖</div><div><div class="msg-bubble">你好！我是 ' + name + '。有什麼可以幫你？</div><div class="msg-time">' + new Date().toLocaleTimeString() + '</div></div></div>';
+}
+
+function showPanel(id, tab) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (tab) tab.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Initialize
+loadAgents();
+loadSignals();
+document.getElementById('connectionStatus').textContent = 'READY';
+setInterval(loadAgents, 10000);
+</script>
