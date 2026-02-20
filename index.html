@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000XNFT GEM | 機器人進化 以及你的未來</title>
+    <meta name="description" content="讓你的 OPENCLAW 為你賺錢。AI 自動化賺錢系統，躺著也能生錢。">
+    <meta property="og:title" content="1000XNFT GEM - 機器人進化 以及你的未來">
+    <meta property="og:description" content="讓你的 OPENCLAW 為你賺錢。AI 自動化賺錢系統">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00f5ff;
+            --secondary: #9d50bb;
+            --accent: #ff6b6b;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --light: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Animated Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .glow-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(157, 80, 187, 0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        header {
+            padding: 30px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
+            50% { box-shadow: 0 0 20px 5px rgba(0, 245, 255, 0.2); }
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', sans-size: clamp(-serif;
+            font2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--primary) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(157, 80, 187, 0.5)); }
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary), #6e48aa);
+            color: var(--light);
+            box-shadow: 0 10px 40px rgba(157, 80, 187, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(157, 80, 187, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+            margin-top: 60px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Features */
+        .features {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--glass), rgba(0, 245, 255, 0.1));
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: linear-gradient(180deg, transparent, rgba(157, 80, 187, 0.05), transparent);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), #6e48aa);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .step p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(5, 5, 8, 0.5);
+        }
+        
+        footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+        
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-1 {
+            top: 20%;
+            left: 10%;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+        
+        .floating-2 {
+            top: 60%;
+            right: 10%;
+            font-size: 3rem;
+            opacity: 0.1;
+            animation-delay: -3s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .hero {
+                padding: 150px 20px 80px;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating {
+                display: none;
+            }
+        }
+        
+        /* Scan Line Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+    </div>
+    <div class="scanlines"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">1000XNFT GEM</div>
+                <ul class="nav-links">
+                    <li><a href="#features">特色</a></li>
+                    <li><a href="#how-it-works">運作方式</a></li>
+                    <li><a href="#cta">開始使用</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="floating floating-1">🤖</div>
+        <div class="floating floating-2">💰</div>
+        
+        <div class="hero-content">
+            <div class="badge">🚀 AI 自動化賺錢系統</div>
+            <h1>機器人進化<br>以及你的未來</h1>
+            <p>讓你的 OPENCLAW 為你賺錢。告別手動操作，AI 為你 24/7 自動化創造財富。</p>
+            
+            <div class="cta-group">
+                <a href="#cta" class="btn btn-primary">
+                    🚀 立即體驗
+                </a>
+                <a href="#how-it-works" class="btn btn-secondary">
+                   了解更多
+                </a>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">全自動化</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000x</div>
+                    <div class="stat-label">財富可能</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">需親自操作</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>✨ 核心特色</h2>
+                <p>全方位 AI 自動化解決方案，讓賺錢變得簡單</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>讓你的 OPENCLAW 為你賺錢</h3>
+                    <p>全自動化 AI 交易系統，7×24 小時為你創造被動收入。告別盯盤，告別疲憊。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>AI 自動化賺錢系統</h3>
+                    <p>智能分析市場趨勢，自動執行最佳化投資策略。實時監控，快速反應。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <h3>躺著也能生錢</h3>
+                    <p>設定一次，持續獲利。讓 AI 為你工作，你只需要享受生活。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>安全可靠</h3>
+                    <p>企業級安全架構，保護你的資產。透明公開，所有操作可追溯。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>智能分析</h3>
+                    <p>大數據驅動的投資決策，AI 精準預測市場走向，領先一步。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>全球市場</h3>
+                    <p>覆蓋全球主要市場，跨鏈、跨平台、多幣種配置分散風險。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔄 如何運作</h2>
+                <p>三步驟，開始你的自動化賺錢之旅</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>連接錢包</h3>
+                    <p>輕鬆連接你的 OpenCLAW 錢包，開始自動化之旅</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>設定策略</h3>
+                    <p>選擇你的風險偏好和投資目標，AI 為你優化</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>自動賺錢</h3>
+                    <p>AI 24/7 為你運作，坐等收益入帳</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>準備好改變你的未來了嗎？</h2>
+            <p>加入 1000XNFT GEM，讓 AI 為你創造財富</p>
+            <a href="#" class="btn btn-primary">
+                🚀 立即開始
+            </a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2026 1000XNFT GEM. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
